@@ -1,0 +1,258 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ Copyright (c) 2014-2022 MoEngage Inc.
+  ~
+  ~ All rights reserved.
+  ~
+  ~ * Use of source code or binaries contained within MoEngage SDK is permitted only to enable use of the MoEngage platform by customers of MoEngage.
+  ~ * Modification of source code and inclusion in mobile apps is explicitly allowed provided that all other conditions are met.
+  ~ * Neither the name of MoEngage nor the names of its contributors may be used to endorse or promote products derived from this software without specific prior written permission.
+  ~ * Redistribution of source code or binaries is disallowed except with specific prior written permission. Any such redistribution must retain the above copyright notice, this list of conditions and the following disclaimer.
+  ~
+  ~ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+  -->
+
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    package="com.moengage.sampleapp">
+
+  <uses-permission android:name="android.permission.WAKE_LOCK" />
+  <uses-permission android:name="android.permission.INTERNET" />
+  <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+  <uses-permission android:name="android.permission.ACCESS_BACKGROUND_LOCATION" />
+  <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+  <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+  <!-- Mi Push Permission starts here -->
+  <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+  <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+  <uses-permission android:name="android.permission.VIBRATE" />
+
+  <permission
+      android:name="${applicationId}.permission.MIPUSH_RECEIVE"
+      android:protectionLevel="signature" />
+
+  <uses-permission android:name="${applicationId}.permission.MIPUSH_RECEIVE" />
+
+  <application
+      android:name=".SampleApplication"
+      android:allowBackup="true"
+      android:fullBackupContent="@xml/com_moengage_backup_descriptor"
+      android:dataExtractionRules="@xml/com_moengage_data_extraction_rules"
+      android:icon="@drawable/app_logo"
+      android:label="@string/app_name"
+      android:roundIcon="@drawable/large_icon"
+      android:supportsRtl="true"
+      android:theme="@style/AppTheme.NoActionBar"
+      android:usesCleartextTraffic="true"
+      tools:ignore="GoogleAppIndexingWarning">
+    <activity
+        android:name=".info.InfoActivity"
+        android:exported="false"
+        android:label="@string/title_activity_info"
+        android:theme="@style/AppTheme.NoActionBar.NoActionBar" />
+    <activity
+        android:name=".instancepicker.InstancePickerActivity"
+        android:exported="true"
+        android:label="@string/title_activity_instance_picker"
+        android:theme="@style/AppTheme.NoActionBar.NoActionBar" />
+    <activity
+        android:name=".cards.CardHomeActivity"
+        android:label="@string/label_activity_card_home" />
+    <activity
+        android:name=".inbox.CustomInboxActivity"
+        android:label="Custom Inbox" />
+    <activity
+        android:name=".inapp.CampaignInfoActivity"
+        android:configChanges="orientation|screenSize|screenLayout|keyboardHidden"
+        android:label="@string/label_activity_campaign_info" />
+    <activity
+        android:name=".inapp.InAppConfigActivity"
+        android:label="@string/label_activity_in_app_config"
+        android:theme="@style/AppTheme.NoActionBar" />
+    <activity
+        android:name=".ui.activity.MainActivity"
+        android:exported="true"
+        android:label="@string/app_name"
+        android:theme="@style/AppTheme.NoActionBar">
+      <intent-filter>
+        <action android:name="android.intent.action.VIEW" />
+
+        <category android:name="android.intent.category.DEFAULT" />
+        <category android:name="android.intent.category.BROWSABLE" />
+
+        <data
+            android:host="testdeeplink"
+            android:path="/mainActivity"
+            android:scheme="moengage" />
+      </intent-filter>
+    </activity>
+<!--    <activity
+        android:name="com.moe.pushlibrary.activities.MoEActivity"
+        tools:replace="android:label"
+        android:label="Rich Landing"
+        android:parentActivityName=".ui.activity.ConfigurationActivity" />-->
+    <activity
+        android:name=".ui.activity.SplashActivity"
+        android:exported="true"
+        android:theme="@style/Theme.AppCompat.DayNight.NoActionBar.FullScreen">
+      <intent-filter>
+        <action android:name="android.intent.action.MAIN" />
+
+        <category android:name="android.intent.category.LAUNCHER" />
+      </intent-filter>
+    </activity>
+    <activity
+        android:name=".ui.activity.ConfigurationActivity"
+        android:exported="true"
+        android:label="@string/label_activity_app_config"
+        android:theme="@style/AppTheme.NoActionBar">
+      <intent-filter>
+        <action android:name="android.intent.action.VIEW" />
+
+        <category android:name="android.intent.category.DEFAULT" />
+        <category android:name="android.intent.category.BROWSABLE" />
+
+        <data
+            android:host="moedemo-93e2e.firebaseapp.com"
+            android:scheme="https" />
+      </intent-filter>
+    </activity>
+    <!--
+    <activity
+        android:name="com.moengage.cards.ui.FeedsActivity">
+    </activity>
+        -->
+    <service
+        android:name="com.moengage.hms.pushkit.MoEPushKitMessageService"
+        android:exported="false">
+      <intent-filter>
+        <action android:name="com.huawei.push.action.MESSAGING_EVENT" />
+      </intent-filter>
+    </service>
+
+    <activity
+        android:name=".ui.activity.TestActivity"
+        android:exported="true">
+      <intent-filter>
+        <action android:name="android.intent.action.VIEW" />
+
+        <category android:name="android.intent.category.DEFAULT" />
+        <category android:name="android.intent.category.BROWSABLE" />
+
+        <data
+            android:host="testdeeplink"
+            android:path="/testActivity"
+            android:scheme="moengage" />
+      </intent-filter>
+    </activity>
+
+<!--    <service
+        android:name=".HmsServiceReceiver"
+        android:exported="false">
+      <intent-filter>
+        <action android:name="com.huawei.push.action.MESSAGING_EVENT" />
+      </intent-filter>
+    </service>-->
+    <!--
+<service
+       android:name="com.moengage.hms.pushkit.MoEPushKitMessageService"
+       android:exported="false">
+     <intent-filter>
+       <action android:name="com.huawei.push.action.MESSAGING_EVENT" />
+     </intent-filter>
+   </service>
+        -->
+    <!-- FCM Services Start -->
+    <!--    <service
+            android:name="com.moengage.firebase.MoEFireBaseMessagingService"
+            android:exported="false">
+          <intent-filter>
+            <action android:name="com.google.firebase.MESSAGING_EVENT" />
+          </intent-filter>
+        </service>-->
+    <service
+        android:name=".FirebaseReceiver"
+        android:exported="false">
+      <intent-filter>
+        <action android:name="com.google.firebase.MESSAGING_EVENT" />
+      </intent-filter>
+    </service>
+
+    <meta-data
+        android:name="firebase_messaging_auto_init_enabled"
+        android:value="false" />
+    <meta-data
+        android:name="firebase_analytics_collection_enabled"
+        android:value="false" />
+    <!-- FCM Services End -->
+    <!-- Mi Push related services start -->
+    <service
+        android:name="com.xiaomi.push.service.XMPushService"
+        android:enabled="true"
+        android:process=":pushservice" />
+    <service
+        android:name="com.xiaomi.push.service.XMJobService"
+        android:enabled="true"
+        android:exported="false"
+        android:permission="android.permission.BIND_JOB_SERVICE"
+        android:process=":pushservice" />
+    <service
+        android:name="com.xiaomi.mipush.sdk.PushMessageHandler"
+        android:enabled="true"
+        android:exported="true" />
+    <service
+        android:name="com.xiaomi.mipush.sdk.MessageHandleService"
+        android:enabled="true" />
+
+    <receiver
+        android:name="com.xiaomi.push.service.receivers.NetworkStatusReceiver"
+        android:exported="true">
+      <intent-filter>
+        <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
+
+        <category android:name="android.intent.category.DEFAULT" />
+      </intent-filter>
+    </receiver>
+    <receiver
+        android:name="com.xiaomi.push.service.receivers.PingReceiver"
+        android:exported="false"
+        android:process=":pushservice">
+      <intent-filter>
+        <action android:name="com.xiaomi.push.PING_TIMER" />
+      </intent-filter>
+    </receiver> <!-- Mi Push related Services end -->
+    <!-- Mi Push Receiver -->
+<!--    <receiver
+        android:name="com.moengage.mi.MoEMiPushReceiver"
+        android:exported="true">
+      <intent-filter>
+        <action android:name="com.xiaomi.mipush.RECEIVE_MESSAGE" />
+      </intent-filter>
+      <intent-filter>
+        <action android:name="com.xiaomi.mipush.MESSAGE_ARRIVED" />
+      </intent-filter>
+      <intent-filter>
+        <action android:name="com.xiaomi.mipush.ERROR" />
+      </intent-filter>
+    </receiver>-->
+    <receiver
+        android:name="com.moengage.sampleapp.push.mipush.MiPushReceiver"
+        android:exported="true">
+      <intent-filter>
+        <action android:name="com.xiaomi.mipush.RECEIVE_MESSAGE" />
+      </intent-filter>
+      <intent-filter>
+        <action android:name="com.xiaomi.mipush.MESSAGE_ARRIVED" />
+      </intent-filter>
+      <intent-filter>
+        <action android:name="com.xiaomi.mipush.ERROR" />
+      </intent-filter>
+    </receiver>
+    <activity android:name=".ui.activity.ProcessLifeCycleTestActivity" />
+    <activity
+        android:name=".inbox.InboxHomeActivity"
+        android:label="Inbox Home"
+        android:theme="@style/AppTheme.NoActionBar" />
+  </application>
+
+</manifest>
